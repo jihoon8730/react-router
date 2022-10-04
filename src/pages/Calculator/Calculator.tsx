@@ -10,7 +10,7 @@ function Calculator() {
   const [operator, setOperator] = useState<string>("");
 
   // 결과값 state
-  const [result, setResult] = useState<string>("");
+  const [result, setResult] = useState<Decimal.Value>("");
 
   // 숫자값 state
   const onClickNumber = (number:string) => {
@@ -105,7 +105,7 @@ function Calculator() {
 
   useEffect(() => {
     if (result) {
-      setFirstCalcNumber(result);
+      setFirstCalcNumber(result as string);
     }
   }, [result]);
 
