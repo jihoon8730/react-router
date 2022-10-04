@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Routes, Link } from "react-router-dom";
-import Calculator from "./pages/Calculator/Calculator";
+import Calculator from "./pages/Calculator/Calculator.tsx";
 import Timer from "./pages/Timer/component/Timer";
 import Cats from "./pages/Cats/Cats";
 
