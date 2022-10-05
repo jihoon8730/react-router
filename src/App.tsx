@@ -1,8 +1,8 @@
-import "./App.css";
 import { Route, Routes, Link } from "react-router-dom";
-import Calculator from "./pages/Calculator/Calculator.tsx";
+import Calculator from "./pages/Calculator/Calculator";
 import Timer from "./pages/Timer/component/Timer";
 import Cats from "./pages/Cats/Cats";
+import "./App.css";
 
 function App() {
   return (
@@ -31,9 +31,9 @@ function App() {
           element={
             <>
               <Timer
-                intitHour={0}
-                initMin={0}
-                initSec={0}
+                initHour={5}
+                initMin={5}
+                initSec={5}
                 closeMent="타이머 끝"
               />
             </>

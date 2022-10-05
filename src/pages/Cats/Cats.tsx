@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Cats({ keywordSearch }) {
-  const [cats, setCats] = useState();
+export default function Cats({ keywordSearch } : { keywordSearch : string }) {
+  const [cats, setCats] = useState<string[]>();
 
   useEffect(() => {
     axios({
@@ -12,7 +12,7 @@ export default function Cats({ keywordSearch }) {
       .then((response) => {
         if (response.data) {
           const result = response.data;
-          const filtered = result.filter((_word) =>
+          const filtered = result.filter((_word : string) =>
             _word.includes(keywordSearch)
           );
           const catLimit = filtered.slice(0, 10);
@@ -25,7 +25,7 @@ export default function Cats({ keywordSearch }) {
   }, []);
   return (
     <ul>
-      {cats?.map((cat, index) => {
+      {cats?.map((cat: string, index: number) => {
         return <li key={index}>{cat}</li>;
       })}
     </ul>

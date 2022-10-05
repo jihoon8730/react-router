@@ -13,7 +13,7 @@ function Calculator() {
   const [result, setResult] = useState<Decimal.Value>("");
 
   // 숫자값 state
-  const onClickNumber = (number:string) => {
+  const onClickNumber = (number:string[]) => {
     if (!operator) {
       setFirstCalcNumber([...firstCalcNumber, number].join(""));
     } else {
@@ -37,23 +37,23 @@ function Calculator() {
 
   const checkDot:any = () => {
     if (!operator && !firstCalcNumber.includes(".") && firstCalcNumber !== "") {
-      onClickNumber(".");
+      onClickNumber(["."]);
     }
     if (
       operator &&
       !secondCalcNumber.includes(".") &&
       secondCalcNumber !== ""
     ) {
-      onClickNumber(".");
+      onClickNumber(["."]);
     }
   };
 
   const checkNumberZero = () => {
     if (!operator && firstCalcNumber !== "0") {
-      onClickNumber("0");
+      onClickNumber(["0"]);
     }
     if (operator && secondCalcNumber !== "0") {
-      onClickNumber("0");
+      onClickNumber(["0"]);
     }
   };
 
@@ -74,7 +74,7 @@ function Calculator() {
 
   const handleKeyboardOperator = (e:React.KeyboardEvent<HTMLElement>) => {
     if (isFinite(Number(e.key))) {
-      onClickNumber(e.key);
+      onClickNumber([e.key]);
     } else if (e.key === "+") {
       setOperator("+");
     } else if (e.key === "-") {
@@ -127,7 +127,7 @@ function Calculator() {
           <button
             className="number-btn"
             onClick={() => {
-              onClickNumber("7");
+              onClickNumber(["7"]);
             }}
           >
             7
@@ -135,7 +135,7 @@ function Calculator() {
           <button
             className="number-btn"
             onClick={() => {
-              onClickNumber("8");
+              onClickNumber(["8"]);
             }}
           >
             8
@@ -143,7 +143,7 @@ function Calculator() {
           <button
             className="number-btn"
             onClick={() => {
-              onClickNumber("9");
+              onClickNumber(["9"]);
             }}
           >
             9
@@ -162,7 +162,7 @@ function Calculator() {
           <button
             className="number-btn"
             onClick={() => {
-              onClickNumber("4");
+              onClickNumber(["4"]);
             }}
           >
             4
@@ -170,7 +170,7 @@ function Calculator() {
           <button
             className="number-btn"
             onClick={() => {
-              onClickNumber("5");
+              onClickNumber(["5"]);
             }}
           >
             5
@@ -178,7 +178,7 @@ function Calculator() {
           <button
             className="number-btn"
             onClick={() => {
-              onClickNumber("6");
+              onClickNumber(["6"]);
             }}
           >
             6
@@ -197,7 +197,7 @@ function Calculator() {
           <button
             className="number-btn"
             onClick={() => {
-              onClickNumber("1");
+              onClickNumber(["1"]);
             }}
           >
             1
@@ -205,7 +205,7 @@ function Calculator() {
           <button
             className="number-btn"
             onClick={() => {
-              onClickNumber("2");
+              onClickNumber(["2"]);
             }}
           >
             2
@@ -213,7 +213,7 @@ function Calculator() {
           <button
             className="number-btn"
             onClick={() => {
-              onClickNumber("3");
+              onClickNumber(["3"]);
             }}
           >
             3

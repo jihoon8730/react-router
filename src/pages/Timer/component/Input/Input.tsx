@@ -1,5 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, SetStateAction, Dispatch } from "react";
 import "./Input.css";
+
+interface InputType {
+  sec: number,
+  setSec: Dispatch<SetStateAction<number>>,
+  min: number,
+  setMin: Dispatch<SetStateAction<number>>,
+  hour: number,
+  setHour: Dispatch<SetStateAction<number>>,
+  closeMent: string,
+  timerDelete: any;
+};
 
 function Input({
   sec,
@@ -10,37 +21,39 @@ function Input({
   setHour,
   closeMent,
   timerDelete,
-}) {
+}: InputType) {
   const [offInput, setOffInput] = useState(false);
   const [restartAndstop, setRestartAndStop] = useState(false);
 
   const initialTime =
-    parseInt(hour) * 60 * 60 + parseInt(min) * 60 + parseInt(sec);
-  const interval = useRef(null);
-  const onHourChange = (e, time, comment) => {
-    let { value } = e.target;
+    hour * 60 * 60 + min * 60 + sec;
+  const interval = useRef<any>(null);
+
+
+  const onHourChange = (e: React.FormEvent<HTMLInputElement>, time: number | string, comment: string) => {
+    let { value } = e.target as HTMLInputElement;
     if (value.length > 2) {
       value = value.substr(0, 2);
     } else if (value > time) {
       alert(`${comment}를 초과할 수 없습니다`);
       e.preventDefault();
     }
-    setHour(value);
+    setHour(Number(value));
   };
 
-  const onMinChange = (e, time, comment) => {
-    let { value } = e.target;
+  const onMinChange = (e: React.FormEvent<HTMLInputElement>, time: number | string, comment: string ) => {
+    let { value } = e.target as HTMLInputElement;;
     if (value.length > 2) {
       value = value.substr(0, 2);
     } else if (value > time) {
       alert(`${comment}를 초과할 수 없습니다`);
       e.preventDefault();
     }
-    setMin(value);
+    setMin(Number(value));
   };
 
-  const onSecChange = (e, time, comment) => {
-    let { value } = e.target;
+  const onSecChange = (e: React.FormEvent<HTMLInputElement>, time: number | string, comment: string ) => {
+    let { value } = e.target as HTMLInputElement;;
     if (value.length > 2) {
       value = value.substr(0, 2);
     } else if (value > time) {
@@ -48,18 +61,16 @@ function Input({
       setSec(0);
       e.preventDefault();
     }
-    setSec(value);
+    setSec(Number(value));
   };
-
-  useEffect(() => {}, []);
 
   let calc = initialTime;
   const onClickCount = () => {
     interval.current = setInterval(() => {
       calc = calc - 1;
-      setSec(calc % 60, 2);
-      setMin(parseInt((calc / 60) % 60));
-      setHour(parseInt(calc / 60 / 60));
+      setSec(calc % 60);
+      setMin(parseInt(String((calc / 60) % 60)));
+      setHour(parseInt(String(calc / 60 / 60)));
       if (calc <= 0) {
         alert(closeMent);
         clearInterval(interval.current);
@@ -68,6 +79,7 @@ function Input({
         clearInterval(interval.current);
       };
     }, 1000);
+    
   };
 
   const onClickStartCount = () => {

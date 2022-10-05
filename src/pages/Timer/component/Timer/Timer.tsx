@@ -2,14 +2,19 @@ import { useState } from "react";
 import Input from "../Input";
 import TimerView from "../TimerView";
 import "./Timer.css";
+interface TimerType {
+  initHour: number,
+  initMin: number,
+  initSec: number,
+  closeMent: string
+}
+function Timer({ initHour, initMin, initSec, closeMent }: TimerType) {
+  const [hour, setHour] = useState<number>(initHour);
+  const [min, settMin] = useState<number>(initMin);
+  const [sec, setSec] = useState<number>(initSec);
+  const [isTimerDelete, setIsTimerDelete] = useState<boolean>(false);
 
-function Timer({ intitHour, initMin, initSec, closeMent }) {
-  const [hour, setHour] = useState(intitHour);
-  const [min, settMin] = useState(initMin);
-  const [sec, setSec] = useState(initSec);
-  const [isTimerDelete, setIsTimerDelete] = useState(false);
-  const timerDelete = () => {
-    console.log("컴포넌트 종료");
+  function timerDelete() {
     setIsTimerDelete(true);
   };
   return (
