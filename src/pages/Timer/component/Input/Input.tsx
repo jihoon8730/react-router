@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useState, useRef, SetStateAction, Dispatch } from "react";
 import "./Input.css";
 
@@ -12,6 +13,7 @@ interface InputType {
   timerDelete: any;
 };
 
+
 function Input({
   sec,
   setSec,
@@ -22,13 +24,13 @@ function Input({
   closeMent,
   timerDelete,
 }: InputType) {
-  const [offInput, setOffInput] = useState(false);
-  const [restartAndstop, setRestartAndStop] = useState(false);
+  const [offInput, setOffInput] = useState<boolean>(false);
+  const [restartAndstop, setRestartAndStop] = useState<boolean>(false);
 
   const initialTime =
     hour * 60 * 60 + min * 60 + sec;
-  const interval = useRef<any>(null);
-
+  
+  const interval = useRef<NodeJS.Timer | null >(null);
 
   const onHourChange = (e: React.FormEvent<HTMLInputElement>, time: number | string, comment: string) => {
     let { value } = e.target as HTMLInputElement;
@@ -63,7 +65,7 @@ function Input({
     }
     setSec(Number(value));
   };
-
+  
   let calc = initialTime;
   const onClickCount = () => {
     interval.current = setInterval(() => {
@@ -73,10 +75,10 @@ function Input({
       setHour(parseInt(String(calc / 60 / 60)));
       if (calc <= 0) {
         alert(closeMent);
-        clearInterval(interval.current);
+        clearInterval(interval.current as NodeJS.Timer);
       }
       return () => {
-        clearInterval(interval.current);
+        clearInterval(interval.current as NodeJS.Timer);
       };
     }, 1000);
     
@@ -87,7 +89,7 @@ function Input({
   };
 
   const onClickCancel = () => {
-    clearInterval(interval.current);
+    clearInterval(interval.current as NodeJS.Timer);
     setHour(0);
     setMin(0);
     setSec(0);
@@ -96,7 +98,7 @@ function Input({
   };
 
   const onClickStop = () => {
-    clearInterval(interval.current);
+    clearInterval(interval.current as NodeJS.Timer);
     setRestartAndStop(true);
   };
 
@@ -150,7 +152,7 @@ function Input({
           className="delete-btn"
           onClick={() => {
             timerDelete();
-            clearInterval(interval.current);
+            clearInterval(interval.current as NodeJS.Timer);
           }}
         >
           제거
